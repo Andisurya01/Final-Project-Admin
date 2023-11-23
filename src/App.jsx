@@ -15,7 +15,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login />}></Route>
-        </Routes>
         <div >
           <div className="hidden">
             <div className="absolute w-screen py-10 bg-black bg-opacity-90">
@@ -33,13 +32,12 @@ function App() {
                 <Card number={"25"} title={"Active Class"} background={"#73CA5C"}></Card>
                 <Card number={"20"} title={"Premium Class"} background={"#6148FF"}></Card>
               </div>
-              <Routes>
                 <Route path='/dashboard' element={<DashBoard />}></Route>
                 <Route path='/kelolakelas' element={<KelolaKelas />}></Route>
-              </Routes>
             </div>
           </div>
         </div>
+        </Routes>
       </BrowserRouter>
     </>
   )
