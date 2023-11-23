@@ -24,8 +24,8 @@ const DashBoardPages = () => {
                 <Card number={"25"} title={"Active Class"} background={"#73CA5C"}></Card>
                 <Card number={"20"} title={"Premium Class"} background={"#6148FF"}></Card>
               </div>
-                <Route path='/dashboard' element={<DashBoard />}></Route>
-                <Route path='/kelolakelas' element={<KelolaKelas />}></Route>
+{/*                 <Route path='/dashboard' element={<DashBoard />}></Route>
+                <Route path='/kelolakelas' element={<KelolaKelas />}></Route> */}
             </div>
           </div>
         </div>
