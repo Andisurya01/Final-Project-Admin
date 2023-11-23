@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route} from 'react-router-dom'
 import SideBar from "../components/SideBar/SideBar";
 import Navbar from "../components/Navbar/Navbar";
 import Card from "../components/Cards/Card";
@@ -24,10 +24,8 @@ const DashBoardPages = () => {
                 <Card number={"25"} title={"Active Class"} background={"#73CA5C"}></Card>
                 <Card number={"20"} title={"Premium Class"} background={"#6148FF"}></Card>
               </div>
-              <Routes>
                 <Route path='/dashboard' element={<DashBoard />}></Route>
                 <Route path='/kelolakelas' element={<KelolaKelas />}></Route>
-              </Routes>
             </div>
           </div>
         </div>
