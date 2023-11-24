@@ -6,10 +6,10 @@ const SideBar = () => {
         <div className="w-[300px] bg-DARKBLUE05 bg-repeat-y bg-cover h-screen">
             <div className="py-20 text-center text-DARKBLUE05">LOGO</div>
             <div className="">
-                <CustomLink to="dashboard" >
+                <CustomLink to="/dashboard" >
                     <div className="text-white font-bold text-base pl-10 py-3" >Dashboard</div>
                 </CustomLink>
-                <CustomLink to="kelolakelas">
+                <CustomLink to="/kelolakelas">
                     <div className="text-white font-bold text-base pl-10 py-3" >Kelola Kelas</div>
                 </CustomLink>
                 <div className="text-white font-bold text-base pl-10 py-3">Keluar</div>
