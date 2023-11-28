@@ -1,24 +1,40 @@
-import HeadingTable from "../HeadingTable/HeadingTable"
-import Tabel from "../KelolaKelas/Tabel"
-import DataTabelKelas from "./DataTabelKelas"
+import { useEffect , useState } from "react";
+import { consumeCourse } from "../../api/coursesAPI";
+import HeadingTable from "../HeadingTable/HeadingTable";
+import Tabel from "../KelolaKelas/Tabel";
+import DataTabelKelas from "./DataTabelKelas";
+
 const KelolaKelas = () => {
+    
+    const [ courses , setCourses ] = useState([])
+
+    useEffect(() => {
+        consumeCourse.getCourses()
+        .then(res => setCourses(res.data) )
+    })
+
     return (
         <section>
             <HeadingTable Title={"Kelola Kelas"} TambahButton={""} />
             <Tabel></Tabel>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
-            <DataTabelKelas KodeKelas={"UIUX0123"} Kategori={"UI/UX Design"} NamaKelas={"Belajar Web Designer dengan Figma"} TipeKelas={"GRATIS"} Level={"Beginner"} HargaKelas={"Rp 0"}></DataTabelKelas>
+
+            {
+                courses.map(( data ) => {
+                    return (
+                        // eslint-disable-next-line react/jsx-key
+                        <DataTabelKelas 
+                            KodeKelas={data.classCode} 
+                            Kategori={data.category.title} 
+                            NamaKelas={data.title} 
+                            TipeKelas={data.type} 
+                            Level={data.level} 
+                            HargaKelas={data.price}>
+                        </DataTabelKelas>
+                        )
+                })
+            }
         </section>
     )
 }
 
-export default KelolaKelas
+export default KelolaKelas;
