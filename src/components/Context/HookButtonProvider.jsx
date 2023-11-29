@@ -3,10 +3,10 @@ import { createContext, useState } from "react";
 export const HookButtonContext = createContext();
 
 export default function HookButtonProvider({ children }) {
-    const [isTambahKelas, setIsTambahKelas] = useState(false)
+    const [addClass, setAddClass] = useState(false)
     
     return (
-        <HookButtonContext.Provider value={[isTambahKelas, setIsTambahKelas]}>
+        <HookButtonContext.Provider value={[addClass, setAddClass]}>
             {children}
         </HookButtonContext.Provider>
     )

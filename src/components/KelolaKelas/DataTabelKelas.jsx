@@ -13,12 +13,12 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                 <div className="text-[10px] font-bold "><p>{Level}</p></div>
                 <div className="text-[10px] font-bold "><p>{HargaKelas}</p></div>
                 <div className="flex gap-[5px]">
-                    <div>
+                    <button>
                         <ButtonAksi title="Ubah" background="#6148FF" />
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <ButtonAksi title="Hapus" background="#FF0000" />
-                    </div>
+                    </button>
                 </div>
             </div>
         </section>

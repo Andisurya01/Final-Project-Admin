@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import ButtonAksi from "../Button/ButtonAksi"
 const DataStatusPembayaran = ({ ID, Kategori, KelasPremium, Status, MetodePembayaran, TanggalBayar }) => {
     return (
         <section className="px-16">
@@ -9,6 +10,14 @@ const DataStatusPembayaran = ({ ID, Kategori, KelasPremium, Status, MetodePembay
                 <div className="text-xs font-bold "><p>{Status}</p></div>
                 <div className="text-[10px] font-bold "><p>{MetodePembayaran}</p></div>
                 <div className="text-[10px] font-bold "><p>{TanggalBayar}</p></div>
+                <div className="flex gap-[5px]">
+                    <button>
+                        <ButtonAksi title="Approved" background="#6148FF" />
+                    </button>
+                    <button>
+                        <ButtonAksi title="Waiting" background="#FF0000" />
+                    </button>
+                </div>
             </div>
         </section>
     )

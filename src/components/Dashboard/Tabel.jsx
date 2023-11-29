@@ -20,6 +20,9 @@ const Tabel = () => {
                 <div>
                     <p className="text-xs font-normal">Tanggal Bayar</p>
                 </div>
+                <div>
+                    <p className="text-xs font-normal">Aksi</p>
+                </div>
             </div>
         </section>
     )
