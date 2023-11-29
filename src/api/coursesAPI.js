@@ -11,6 +11,6 @@ export const consumeCourse =  {
             return error;
         }
     },
-
+    
 
 }

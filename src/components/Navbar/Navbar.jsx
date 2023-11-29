@@ -7,7 +7,7 @@ const Navbar = () => {
                 </div>
                 <div className="relative flex items-center">
                     <input className="px-6 py-3 font-normal text-xs rounded-2xl w-64 h-16 " placeholder="Cari" ></input>
-                    <img src="/icon_svg/bx_search-alt.svg" alt="Search Logo" className="p-[7px] bg-DARKBLUE05 rounded-[10px] absolute translate-x-48 cursor-pointer" onClick={()=>{console.log("tertekan")}}/>
+                    <img src="/icon_svg/bx_search-alt.svg" alt="Search Logo" className="p-[7px] bg-DARKBLUE05 rounded-[10px] absolute translate-x-48 cursor-pointer"/>
                 </div>
             </div>
         </div>

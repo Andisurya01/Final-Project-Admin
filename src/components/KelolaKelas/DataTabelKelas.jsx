@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import ButtonAksi from "../Button/ButtonAksi"
 
+
 const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, HargaKelas }) => {
     return (
         <section className="px-16">
@@ -12,8 +13,12 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                 <div className="text-[10px] font-bold "><p>{Level}</p></div>
                 <div className="text-[10px] font-bold "><p>{HargaKelas}</p></div>
                 <div className="flex gap-[5px]">
-                    <ButtonAksi title="Ubah" background="#6148FF" />
-                    <ButtonAksi title="Hapus" background="#FF0000" />
+                    <div>
+                        <ButtonAksi title="Ubah" background="#6148FF" />
+                    </div>
+                    <div>
+                        <ButtonAksi title="Hapus" background="#FF0000" />
+                    </div>
                 </div>
             </div>
         </section>
