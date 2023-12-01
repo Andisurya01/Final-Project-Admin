@@ -1,6 +1,6 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import DashboardPages from "../pages/DashboardPages";
-import DashBoard from "../components/DashBoard/DashBoard";
+import DashBoard from "../components/Dashboard/DashBoard";
 import KelolaKelas from "../components/KelolaKelas/KelolaKelas";
 import PrivateRoutes from "./PrivateRoutes";
 import LoginPages from "../pages/LoginPages";
