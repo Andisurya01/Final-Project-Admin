@@ -6,8 +6,7 @@ import axios from 'axios'
 export const getCourses = async() => {
     try {
         const response = await axios.get(`${BASH_URL}/courses`);
-        const data = await response.json();
-        return data;
+        return response;
     } catch (error) {
         return error;
     }
