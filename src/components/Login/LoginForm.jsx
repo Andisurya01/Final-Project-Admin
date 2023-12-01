@@ -1,13 +1,32 @@
 import Button from "../Button/ButtonLogin"
 import { useState } from "react"
+import {postLoginAdmin} from "../../api/coursesAPI";
 
 
 const LoginForm = () => {
     const [emailOrPhone, setEmailOrPhone] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoginDone, setIsLoginDone] = useState(false)
+    const token = localStorage.getItem('token');
 
-    const onSubmit = () => {
-        console.log(emailOrPhone, password);
+    const onSubmit = async ( ) => {
+        try {
+            setIsLoginDone(false)
+            const payload = {
+                emailOrPhone,
+                password
+            }
+            const data = await postLoginAdmin(payload)
+            localStorage.setItem('token', data.data.data.accessToken)
+            console.log(data);
+            setEmailOrPhone("")
+            setPassword("")
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsLoginDone(true)
+            console.log(isLoginDone);
+        }
     }
 
     return (

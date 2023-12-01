@@ -1,5 +1,5 @@
 import { useEffect , useState } from "react";
-import { consumeCourse } from "../../api/coursesAPI";
+// import api from "../../api/coursesAPI";
 import HeadingTable from "../HeadingTable/HeadingTable";
 import Tabel from "../KelolaKelas/Tabel";
 import DataTabelKelas from "./DataTabelKelas";
@@ -8,17 +8,18 @@ const KelolaKelas = () => {
     
     const [ courses , setCourses ] = useState([])
 
-    useEffect(() => {
-        consumeCourse.getCourses()
-        .then(res => setCourses(res.data) )
-    })
+    // useEffect(() => {
+    //     api.getCourses()
+    //     console.log();
+    //     .then(res => setCourses(res.data) )
+    // })
 
     return (
         <section>
             <HeadingTable Title={"Kelola Kelas"} TambahButton={""} />
             <Tabel></Tabel>
 
-            {
+            {/* {
                 courses.map(( data ) => {
                     return (
                         // eslint-disable-next-line react/jsx-key
@@ -32,7 +33,7 @@ const KelolaKelas = () => {
                         </DataTabelKelas>
                         )
                 })
-            }
+            } */}
         </section>
     )
 }

@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateRoutes = () => {
+const ProtectedRoutes = () => {
     const token = localStorage.getItem("token");
     if (token === null) {
-        return <Navigate to="/login" />
-    } else {
         return <Outlet/>
+    } else {
+        return <Navigate to="/dashboard" />
     }
 }
 
-export default PrivateRoutes;
+export default ProtectedRoutes;

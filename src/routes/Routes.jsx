@@ -5,6 +5,8 @@ import KelolaKelas from "../components/KelolaKelas/KelolaKelas";
 import PrivateRoutes from "./PrivateRoutes";
 import LoginPages from "../pages/LoginPages";
 import HookButtonProvider from "../components/Context/HookButtonProvider";
+import NotFound from "../pages/NotFound";
+import ProtectedRoutes from "./ProtectedRoutes";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
@@ -14,8 +16,10 @@ const router = createBrowserRouter(
                     <Route path='/kelolakelas' element={<KelolaKelas />} />
                 </Route>
             </Route>
-            <Route path='/login' element={<LoginPages />} />
-            <Route path='*' element={<h1>Not Found</h1>} />
+            <Route element={<ProtectedRoutes />}>
+                <Route path='/login' element={<LoginPages />} />
+            </Route>
+            <Route path='*' element={<NotFound />} />
         </Route>
     )
 )
