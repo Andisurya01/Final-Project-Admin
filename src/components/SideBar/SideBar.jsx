@@ -9,7 +9,7 @@ const SideBar = () => {
     const handleAddClass = () => {
         if (addClass === true) {
             setAddClass(false)
-        }else{
+        } else {
             setAddClass(true)
         }
     }
@@ -23,10 +23,9 @@ const SideBar = () => {
                 <CustomLink to="/kelolakelas">
                     <div className="text-white font-bold text-base pl-10 py-3">Kelola Kelas</div>
                 </CustomLink>
-                <CustomLink>
-                    <div className="text-white font-bold text-base pl-10 py-3" onClick={handleAddClass}>Keluar</div>
-                </CustomLink>
-                {addClass ? <ValidationPopUp></ValidationPopUp>: null}
+                <div className="text-white font-bold text-base pl-10 py-3" onClick={handleAddClass}>Keluar</div>
+
+                {addClass ? <ValidationPopUp></ValidationPopUp> : null}
             </div>
         </div>
     )
