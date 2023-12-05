@@ -1,15 +1,16 @@
 import Button from "../Button/ButtonLogin"
 import { useState } from "react"
-import {postLoginAdmin} from "../../api/coursesAPI";
+import { postLoginAdmin } from "../../api/coursesAPI";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
     const [emailOrPhone, setEmailOrPhone] = useState("")
     const [password, setPassword] = useState("")
     const [isLoginDone, setIsLoginDone] = useState(false)
-    const token = localStorage.getItem('token');
+    const navigate = useNavigate()
 
-    const onSubmit = async ( ) => {
+    const onSubmit = async () => {
         try {
             setIsLoginDone(false)
             const payload = {
@@ -17,10 +18,10 @@ const LoginForm = () => {
                 password
             }
             const data = await postLoginAdmin(payload)
-            localStorage.setItem('token', data.data.data.accessToken)
-            console.log(data);
+            document.cookie = `token=${data.data.data.accessToken}`
             setEmailOrPhone("")
             setPassword("")
+            navigate("/dashboard")
         } catch (err) {
             console.log(err);
         } finally {

@@ -2,7 +2,58 @@ import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar/SideBar";
 import Navbar from "../components/Navbar/Navbar";
 import Card from "../components/Cards/Card";
+import {
+    totalClass,
+    totalUser
+} from "../api/coursesAPI"
+import { useEffect, useState } from "react";
+
+
 const DashboardPages = () => {
+    // const [courses, setCourses] = useState([])
+    const [users, setUsers] = useState(0)
+    const [premiumCourses, setPremiumCourses] = useState(0)
+    const [totalCourses, setTotalCourses] = useState(0)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await totalUser()
+                if (!response.status === "OK") {
+                    // Jika data kosong atau tidak sesuai dengan format yang diharapkan
+                    throw new Error('Data tidak valid');
+                }
+                const count = response.data.data.totalUsers
+                setUsers(count)
+                return response
+            } catch (error) { 
+                console.log(error); 
+            }
+        }
+        fetchData();
+    }, [])
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await totalClass()
+                if (!response.status === "OK") {
+                    // Jika data kosong atau tidak sesuai dengan format yang diharapkan
+                    throw new Error('Data tidak valid');
+                }
+                const hitung = response.data.data
+                setTotalCourses(hitung.length)
+                const filterer = hitung.filter((res) => res.type === "PREMIUM")
+                setPremiumCourses(filterer.length)
+            } catch (error) {
+                console.error('Terjadi kesalahan:', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+
     return (
         <div>
             <div className="flex">
@@ -12,9 +63,9 @@ const DashboardPages = () => {
                 <div className="w-screen">
                     <Navbar></Navbar>
                     <div className="flex flex-row gap-6 justify-between px-16 py-20">
-                        <Card number={"450"} title={"Active Users"} background={"#489CFF"}></Card>
-                        <Card number={"25"} title={"Active Class"} background={"#73CA5C"}></Card>
-                        <Card number={"20"} title={"Premium Class"} background={"#6148FF"}></Card>
+                        <Card number={users} title={"Active Users"} background={"#489CFF"}></Card>
+                        <Card number={totalCourses} title={"Active Class"} background={"#73CA5C"}></Card>
+                        <Card number={premiumCourses} title={"Premium Class"} background={"#6148FF"}></Card>
                     </div>
                     <main>
                         <Outlet />

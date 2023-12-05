@@ -11,7 +11,10 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
             <Route element={<PrivateRoutes />}>
-                <Route path='/' element={<HookButtonProvider><DashboardPages /></HookButtonProvider>}>
+                <Route path='/' element={
+                    <HookButtonProvider>
+                        <DashboardPages />
+                    </HookButtonProvider>}>
                     <Route path='/dashboard' element={<DashBoard />} />
                     <Route path='/kelolakelas' element={<KelolaKelas />} />
                 </Route>
