@@ -1,19 +1,16 @@
+import { useEffect, useState } from "react";
 import ButtonTambahKelas from "../Button/ButtonTambahKelas";
-import { useContext } from "react";
-import { HookButtonContext } from "../Context/HookButtonProvider";
-const TambahKelas = () => {
-    const [addClass, setAddClass] = useContext(HookButtonContext)
-
+const TambahKelas = (props) => {
+    const [addClass, setAddClass] = useState(false)
     const handleAddClass = () => {
-        if (addClass === true) {
-            setAddClass(false)
-        }else{
-            setAddClass(true)
-        }
+        setAddClass(!addClass)
     }
+    useEffect(()=>{
+        setAddClass(props)
+    },[])
     return (
         <>
-            {addClass ?
+            {addClass ? 
                 <div className="fixed inset-0 py-5 bg-black/50">
                     <div className="bg-white rounded-2xl max-w-screen-md mx-auto">
                         <div className="px-44 relative">

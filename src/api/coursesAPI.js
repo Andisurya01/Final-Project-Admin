@@ -63,3 +63,17 @@ export const orders = async () => {
         return error
     }
 }
+
+export const addCourses = async (payload) => {
+    try{
+        const response = await axios.post(`${BASH_URL}/courses`,payload,{
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        });
+        return response
+    } catch (error) {
+        return error
+    }
+} 

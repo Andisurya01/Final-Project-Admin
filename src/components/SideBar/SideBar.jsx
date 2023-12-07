@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
-import { HookButtonContext } from "../Context/HookButtonProvider";
-import { useContext } from "react";
-import ValidationPopUp from "../PopUp/ValidationPopup";
+import { Link, useMatch, useNavigate, useResolvedPath } from "react-router-dom";
+import { useState } from "react";
+import ButtonTambahKelas from "../Button/ButtonTambahKelas";
+import deleteCookie from "../../api/deleteCookie";
 const SideBar = () => {
-    const [addClass, setAddClass] = useContext(HookButtonContext)
+    const [addClass, setAddClass] = useState(false)
+    const navigate = useNavigate()
 
     const handleAddClass = () => {
-        if (addClass === true) {
-            setAddClass(false)
-        } else {
-            setAddClass(true)
-        }
+        setAddClass(!addClass)
+    }
+
+    const handleExit = () => {
+        deleteCookie("token")
+        navigate("/login")
     }
     return (
         <div className="w-[300px] bg-DARKBLUE05 bg-repeat-y bg-cover h-screen">
@@ -25,7 +27,23 @@ const SideBar = () => {
                 </CustomLink>
                 <div className="text-white font-bold text-base pl-10 py-3" onClick={handleAddClass}>Keluar</div>
 
-                {addClass ? <ValidationPopUp></ValidationPopUp> : null}
+                {addClass ? (<section className="fixed inset-0 bg-black/50">
+                    <div className="flex bg-white text-center flex-col px-5 w-60 mx-auto rounded-2xl">
+                        <div className="p-5">
+                            <h1 className="font-bold">
+                                Apakah anda yakin ingin keluar?
+                            </h1>
+                            <div className="flex gap-[15px] pt-5">
+                                <button onClick={handleExit}>
+                                    <ButtonTambahKelas title={"Keluar"} background={"#6148FF"}></ButtonTambahKelas>
+                                </button>
+                                <button onClick={handleAddClass}>
+                                    <ButtonTambahKelas title={"Batal"} background={"#FF0000"}></ButtonTambahKelas>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>) : null}
             </div>
         </div>
     )
