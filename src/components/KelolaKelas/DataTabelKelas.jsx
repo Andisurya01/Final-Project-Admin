@@ -1,11 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react"
 import ButtonAksi from "../Button/ButtonAksi"
+import { deleteCourseById } from "../../api/coursesAPI"
 
-
-const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, HargaKelas }) => {
+const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, HargaKelas, id }) => {
     const [warna, setWarna] = useState("")
-
+    const handleDelete = () => {
+        deleteCourseById(id).then(res => {
+            console.log(id);
+            console.log(res.status);
+        })
+    }
     return (
         <section className="px-16">
             <div className="grid grid-cols-8 px-5 py-3 gap-3 items-center">
@@ -19,7 +24,7 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                     <button>
                         <ButtonAksi title="Ubah" background="#6148FF" />
                     </button>
-                    <button>
+                    <button onClick={handleDelete}>
                         <ButtonAksi title="Hapus" background="#FF0000" />
                     </button>
                 </div>

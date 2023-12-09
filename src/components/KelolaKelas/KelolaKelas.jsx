@@ -23,6 +23,7 @@ const KelolaKelas = () => {
                         // eslint-disable-next-line react/jsx-key
                         <DataTabelKelas
                             key={data.id}
+                            id={data.id}
                             KodeKelas={data.classCode}
                             Kategori={data.category.title}
                             NamaKelas={data.title}

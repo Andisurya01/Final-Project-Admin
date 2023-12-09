@@ -7,16 +7,10 @@ import { orders } from "../../api/coursesAPI";
 const DashBoard = () => {
     const [ordersContainer, setOrdersContainer] = useState([])
     useEffect(() => {
-        const fetchData = async() =>{
-            const response = await orders()
-            setOrdersContainer(response.data.data)
-        }
-
-        fetchData()
-        // orders()
-        //     .then(res => {
-        //         setOrdersContainer(res.data.data)
-        //     })
+        orders()
+            .then(res => {
+                setOrdersContainer(res.data.data)
+            })
     }, [])
     return (
         <section>

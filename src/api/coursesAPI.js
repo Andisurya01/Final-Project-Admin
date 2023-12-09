@@ -65,8 +65,8 @@ export const orders = async () => {
 }
 
 export const addCourses = async (payload) => {
-    try{
-        const response = await axios.post(`${BASH_URL}/courses`,payload,{
+    try {
+        const response = await axios.post(`${BASH_URL}/courses`, payload, {
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',
@@ -74,6 +74,51 @@ export const addCourses = async (payload) => {
         });
         return response
     } catch (error) {
+        console.log(error);
         return error
     }
-} 
+}
+
+export const deleteCourseById = async (id) => {
+    try {
+        const response = await axios.delete(`${BASH_URL}/courses`,{
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }, data : {
+                id : id
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getCategories = async () => {
+    try {
+        const response = await axios.get(`${BASH_URL}/categories`, {
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getCurretUser = async () => {
+    try {
+        const response = await axios.get(`${BASH_URL}/auth/current-user`,{
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}

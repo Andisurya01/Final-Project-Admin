@@ -16,28 +16,20 @@ const DashboardPages = () => {
     const [totalCourses, setTotalCourses] = useState(0)
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await totalUser()
+        totalUser()
+            .then((response) => {
                 if (!response.status === "OK") {
-                    // Jika data kosong atau tidak sesuai dengan format yang diharapkan
                     throw new Error('Data tidak valid');
                 }
                 const count = response.data.data.totalUsers
                 setUsers(count)
-                return response
-            } catch (error) { 
-                console.log(error); 
-            }
-        }
-        fetchData();
+            }).catch((error) => console.error('Terjadi kesalahan:', error));
     }, [])
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await totalClass()
+        totalClass()
+            .then((response) => {
                 if (!response.status === "OK") {
                     // Jika data kosong atau tidak sesuai dengan format yang diharapkan
                     throw new Error('Data tidak valid');
@@ -46,11 +38,7 @@ const DashboardPages = () => {
                 setTotalCourses(hitung.length)
                 const filterer = hitung.filter((res) => res.type === "PREMIUM")
                 setPremiumCourses(filterer.length)
-            } catch (error) {
-                console.error('Terjadi kesalahan:', error);
-            }
-        };
-        fetchData();
+            }).catch((error) => console.error('Terjadi kesalahan:', error));
     }, []);
 
 
