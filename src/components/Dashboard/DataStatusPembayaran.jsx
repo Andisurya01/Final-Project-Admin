@@ -13,7 +13,7 @@ const DataStatusPembayaran = ({ ID, Kategori, KelasPremium, Status, MetodePembay
                 <div className="text-[10px] font-bold text-[#4E5566]"><p>{ID}</p></div>
                 <div className="text-[10px] font-bold text-[#4E5566]"><p>{Kategori}</p></div>
                 <div className="text-[10px] font-bold col-span-2"><p>{KelasPremium}</p></div>
-                <div className={`text-xs font-bold `}><p>{Status}</p></div>
+                <div className={Status === "APPROVED" ? "text-xs font-bold text-SUCCESS" : "text-xs font-bold text-WARNING"}><p>{Status}</p></div>
                 <div className="text-[10px] font-bold "><p>{MetodePembayaran}</p></div>
                 <div className="text-[10px] font-bold "><p>{TanggalBayar}</p></div>
                 <div className="flex gap-[5px]">

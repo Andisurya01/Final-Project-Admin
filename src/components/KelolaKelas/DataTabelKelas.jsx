@@ -5,7 +5,6 @@ import { deleteCourseById } from "../../api/coursesAPI"
 import ButtonTambahKelas from "../Button/ButtonTambahKelas"
 
 const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, HargaKelas, id }) => {
-    const [warna, setWarna] = useState("")
     const handleDelete = () => {
         deleteCourseById(id).then(res => {
             console.log(id);
@@ -20,7 +19,7 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                 <div className="text-[10px] font-bold text-[#4E5566]"><p>{KodeKelas}</p></div>
                 <div className="text-[10px] font-bold text-[#4E5566]"><p>{Kategori}</p></div>
                 <div className="text-[10px] font-bold col-span-2"><p>{NamaKelas}</p></div>
-                <div className="text-xs font-bold "><p className={warna}>{TipeKelas}</p></div>
+                <div className={TipeKelas === "FREE" ? "text-xs font-bold text-SUCCESS" : "text-xs font-bold text-DARKBLUE05"}><p>{TipeKelas}</p></div>
                 <div className="text-[10px] font-bold "><p>{Level}</p></div>
                 <div className="text-[10px] font-bold "><p>{HargaKelas}</p></div>
                 <div className="flex gap-[5px]">
