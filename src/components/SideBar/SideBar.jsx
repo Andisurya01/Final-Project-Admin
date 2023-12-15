@@ -3,6 +3,7 @@ import { Link, useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 import { useState } from "react";
 import ButtonTambahKelas from "../Button/ButtonTambahKelas";
 import deleteCookie from "../../api/deleteCookie";
+import logo from "../../assets/craftiq.png"
 const SideBar = () => {
     const [addClass, setAddClass] = useState(false)
     const navigate = useNavigate()
@@ -17,7 +18,9 @@ const SideBar = () => {
     }
     return (
         <div className="w-[300px] bg-DARKBLUE05 bg-repeat-y bg-cover h-screen">
-            <div className="py-20 text-center text-DARKBLUE05">LOGO</div>
+            <div className="py-20 flex items-center justify-center text-DARKBLUE05">
+                <img src={logo} className="w-5/6" />
+            </div>
             <div className="">
                 <CustomLink to="/dashboard" >
                     <div className="text-white font-bold text-base pl-10 py-3">Dashboard</div>
