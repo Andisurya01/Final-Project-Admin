@@ -21,7 +21,7 @@ const DashboardPages = () => {
                 if (!response.status === "OK") {
                     throw new Error('Data tidak valid');
                 }
-                const count = response.data.data.totalUsers
+                const count = response.data?.data?.totalUsers
                 setUsers(count)
             }).catch((error) => console.error('Terjadi kesalahan:', error));
     }, [])

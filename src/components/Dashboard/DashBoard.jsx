@@ -2,15 +2,23 @@ import HeadingTable from "../HeadingTable/HeadingTable";
 import Tabel from "./Tabel";
 import DataStatusPembayaran from "./DataStatusPembayaran";
 import { useEffect, useState } from "react";
-import { orders } from "../../api/coursesAPI";
+import { getCategories, orders } from "../../api/coursesAPI";
 
 const DashBoard = () => {
     const [ordersContainer, setOrdersContainer] = useState([])
+    const [categories, setCategories] = useState([])
     useEffect(() => {
         orders()
             .then(res => {
-                setOrdersContainer(res.data.data)
+                setOrdersContainer(res.data?.data)
+                console.log(res.data.data);
             })
+    }, [])
+    useEffect(() => {
+        getCategories().then(res => {
+            setCategories(res.data.data)
+            console.log(res.data.data);
+        })
     }, [])
     return (
         <section>
@@ -28,7 +36,8 @@ const DashBoard = () => {
                             KelasPremium={data.course.type}
                             Status={data.status}
                             MetodePembayaran={"Credit Card"}
-                            TanggalBayar={data.createdAt}>
+                            TanggalBayar={data.createdAt}
+                            CourseId={data.id}>
                         </DataStatusPembayaran>
                     )
                 })

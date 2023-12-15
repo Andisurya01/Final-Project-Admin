@@ -27,8 +27,8 @@ const SideBar = () => {
                 </CustomLink>
                 <div className="text-white font-bold text-base pl-10 py-3" onClick={handleAddClass}>Keluar</div>
 
-                {addClass ? (<section className="fixed inset-0 bg-black/50">
-                    <div className="flex bg-white text-center flex-col px-5 w-60 mx-auto rounded-2xl">
+                {addClass ? (<section className="fixed inset-0 bg-black/50 flex justify-center items-center">
+                    <div className=" bg-white text-center flex-col px-5 w-60  rounded-2xl">
                         <div className="p-5">
                             <h1 className="font-bold">
                                 Apakah anda yakin ingin keluar?

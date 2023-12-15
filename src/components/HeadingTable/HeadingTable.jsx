@@ -31,9 +31,11 @@ const HeadingTable = ({ Title, TambahButton }) => {
                 rating: 0,
                 price: 90000,
                 level,
-                categoryId: idCategory,
+                telegram: "www.tele.com",
+                categoryId: idCategory
             }
             await addCourses(payload)
+            console.log(payload);
         } catch (error) {
             console.log(error)
         }
@@ -71,7 +73,7 @@ const HeadingTable = ({ Title, TambahButton }) => {
         <section className="flex justify-between content-center px-16 py-10 ">
             <h1 className="text-xl font-bold ">{Title}</h1>
             <div className="flex gap-4">
-                {addClass && <div className="fixed inset-0 py-5 bg-black/50">
+                {addClass && <div className="fixed inset-0  flex justify-center items-center bg-black/50">
                     <div className="bg-white rounded-2xl max-w-screen-md mx-auto">
                         <form className="px-44 relative" >
                             <button type="button" onClick={() => setAddClass(!addClass)}>
@@ -111,7 +113,7 @@ const HeadingTable = ({ Title, TambahButton }) => {
                                 </button>
                                 {isHitType &&
                                     <div>
-                                        <button className="text-sm px-4 py-3 w-full" onClick={(e) => handleType(e, "GRATIS")}>Gratis</button>
+                                        <button className="text-sm px-4 py-3 w-full" onClick={(e) => handleType(e, "FREE")}>Free</button>
                                         <button className="text-sm px-4 py-3 w-full" onClick={(e) => handleType(e, "PREMIUM")}>Premium</button>
                                     </div>}
                             </div>

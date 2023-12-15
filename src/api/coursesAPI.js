@@ -74,7 +74,7 @@ export const addCourses = async (payload) => {
         });
         return response
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
         return error
     }
 }
@@ -112,6 +112,20 @@ export const getCategories = async () => {
 export const getCurretUser = async () => {
     try {
         const response = await axios.get(`${BASH_URL}/auth/current-user`,{
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const putOrderApprove = async (id) => {
+    try {
+        const response = await axios.put(`${BASH_URL}/orders/approve`,{orderId : id},{
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',
