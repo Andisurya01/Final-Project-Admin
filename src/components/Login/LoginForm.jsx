@@ -43,7 +43,6 @@ const LoginForm = () => {
                 <div className="pb-4">
                     <div>
                         <label className="float-left pb-2 text-xs">Password</label>
-                        <label className="float-right text-xs font-medium text-DARKBLUE05">Lupa Kata Sandi</label>
                     </div>
                     <input type="password" name="password" placeholder="Masukkan Password" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>

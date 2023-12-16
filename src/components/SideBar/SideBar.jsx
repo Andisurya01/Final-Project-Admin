@@ -23,12 +23,12 @@ const SideBar = () => {
             </div>
             <div className="">
                 <CustomLink to="/dashboard" >
-                    <div className="text-white font-bold text-base pl-10 py-3">Dashboard</div>
+                    <div className="text-white font-bold text-base pl-10 py-3 hover:bg-DARKBLUE03">Dashboard</div>
                 </CustomLink>
                 <CustomLink to="/kelolakelas">
-                    <div className="text-white font-bold text-base pl-10 py-3">Kelola Kelas</div>
+                    <div className="text-white font-bold text-base pl-10 py-3 hover:bg-DARKBLUE03">Kelola Kelas</div>
                 </CustomLink>
-                <div className="text-white font-bold text-base pl-10 py-3" onClick={handleAddClass}>Keluar</div>
+                <div className="text-white font-bold text-base pl-10 py-3 cursor-pointer hover:bg-DARKBLUE03" onClick={handleAddClass}>Keluar</div>
 
                 {addClass ? (<section className="fixed inset-0 bg-black/50 flex justify-center items-center">
                     <div className=" bg-white text-center flex-col px-5 w-60  rounded-2xl">

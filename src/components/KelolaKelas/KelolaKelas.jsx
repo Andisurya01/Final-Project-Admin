@@ -3,11 +3,11 @@ import { getCourses } from "../../api/coursesAPI";
 import HeadingTable from "../HeadingTable/HeadingTable";
 import Tabel from "../KelolaKelas/Tabel";
 import DataTabelKelas from "./DataTabelKelas";
+import rupiah from "../../utils/Rupiah";
 
 const KelolaKelas = () => {
 
     const [courses, setCourses] = useState([])
-
     useEffect(() => {
         getCourses()
             .then(res => setCourses(res.data.data))
@@ -29,7 +29,7 @@ const KelolaKelas = () => {
                             NamaKelas={data.title}
                             TipeKelas={data.type}
                             Level={data.level}
-                            HargaKelas={data.price}>
+                            HargaKelas={rupiah(data.price)}>
                         </DataTabelKelas>
                     )
                 })
