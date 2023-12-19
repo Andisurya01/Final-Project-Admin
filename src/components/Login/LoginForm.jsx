@@ -21,6 +21,7 @@ const LoginForm = () => {
             console.log(data);
             console.log(payload);
             document.cookie = `token=${data.data.data.accessToken}`
+            console.log(data.data.message);
             setEmailOrPhone("")
             setPassword("")
             navigate("/dashboard")
