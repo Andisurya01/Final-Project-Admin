@@ -16,9 +16,9 @@ const KelolaKelas = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const lastIndex = currentPage * 5;
     const firstIndex = lastIndex - 5;
-    const records = courses.slice(firstIndex, lastIndex)
+    const records = courses?.slice(firstIndex, lastIndex)
     const nPage = Math.ceil(courses.length / 5)
-    const numbers = [...Array(nPage + 1).keys()].slice(1)
+    const numbers = [...Array(nPage + 1).keys()]?.slice(1)
 
 
     useEffect(() => {
