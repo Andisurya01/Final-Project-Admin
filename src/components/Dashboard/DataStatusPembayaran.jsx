@@ -1,12 +1,56 @@
 /* eslint-disable react/prop-types */
 import { putOrderApprove } from "../../api/coursesAPI"
 import ButtonAksi from "../Button/ButtonAksi"
-const DataStatusPembayaran = ({ ID, Kategori, KelasPremium, Status, MetodePembayaran, TanggalBayar, CourseId }) => {
-    const handleApproveCourse = () => {
-        putOrderApprove(CourseId).then(res => {
-            console.log(res.status);
+import { consumeCourseTrackingsApi } from "../../api/courseTrackings"
+import { consumeOrderApi } from "../../api/order"
+import { consumeNotificationApi } from "../../api/notification"
+const DataStatusPembayaran = ({ ID , UserId , IsCourseId ,  Kategori, KelasPremium, Status, MetodePembayaran, TanggalBayar, CourseId }) => {
+    const handleApproveCourse = async () => {
+
+        const res = await consumeOrderApi.getOrder();
+        const orderFilterById = await res.data.filter( data => {
+            return data.id == CourseId;
+        })
+        
+        if(orderFilterById[0].status != 'APPROVED'){
+            putOrderApprove(CourseId).then(res => {
+                if(res.status == 200){
+                    createCourseTracking({status : 'PROGRESS' , userId : UserId , courseId : IsCourseId })
+                }
+            })
+        }else{
+            return false;
+        }
+    }
+
+    const createCourseTracking = (payload) => {
+        const { status , userId , courseId } = payload;
+        consumeCourseTrackingsApi.createCourseTrackingsUser({
+            status : status,
+            userId : userId,
+            courseId : courseId
+        }).then(res => {
+            if(res.status != 'OK'){
+                return false;
+
+            }
         })
     }
+
+    // const createNotification = (course) => {
+    //     const payload = {
+    //         title : 'Kelas Order',
+    //         subtitle : `Kelas ${course} sudah berjalan`,
+    //         description :`Ikuti kelas hingga selesai dan mendapatkan value yang diharapkan`
+    //     }
+
+    //     consumeNotificationApi.postNotification(payload).then(res => {
+    //         if(res.status != 'OK'){
+    //             return false;
+    //         }
+    //     })
+    // }
+
     return (
         <section className="px-16">
             <div className="grid grid-cols-8 px-5 py-3 gap-3 items-center">

@@ -131,12 +131,15 @@ const DashBoard = () => {
                         <DataStatusPembayaran
                             key={data.id}
                             ID={data.user.name}
+                            UserId={data.user.id}
                             Kategori={handleCategory(data.course.categoryId)}
                             KelasPremium={data.course.type}
                             Status={data.status}
                             MetodePembayaran={"Credit Card"}
                             TanggalBayar={newDate}
-                            CourseId={data.id}>
+                            CourseId={data.id}
+                            IsCourseId={data.course.id}
+                            >
                         </DataStatusPembayaran>
                     )
                 })
