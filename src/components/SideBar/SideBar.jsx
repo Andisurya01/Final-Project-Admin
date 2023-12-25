@@ -17,7 +17,7 @@ const SideBar = () => {
         navigate("/login")
     }
     return (
-        <div className="w-[300px] bg-DARKBLUE05 bg-repeat-y bg-cover h-screen">
+        <div className="w-[300px] bg-DARKBLUE05 bg-repeat-y bg-cover h-full">
             <div className="py-20 flex items-center justify-center text-DARKBLUE05">
                 <img src={logo} className="w-5/6" />
             </div>
