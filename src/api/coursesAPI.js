@@ -4,9 +4,9 @@ import axios from 'axios'
 import getCookieValue from './getCookie';
 const tokenCookie = getCookieValue("token")
 
-export const getCourses = async () => {
+export const getCourses = async (currentPage,itemsPerPage) => {
     try {
-        const response = await axios.get(`${BASH_URL}/courses`);
+        const response = await axios.get(`${BASH_URL}/courses?page=${currentPage}&limit=${itemsPerPage}`);
         return response;
     } catch (error) {
         return error;
@@ -50,9 +50,9 @@ export const totalClass = async () => {
     }
 }
 
-export const orders = async () => {
+export const orders = async (currentPage,itemsPerPage) => {
     try {
-        const response = await axios.get(`${BASH_URL}/orders`, {
+        const response = await axios.get(`${BASH_URL}/orders?page=${currentPage}&limit=${itemsPerPage}`, {
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',
@@ -81,12 +81,12 @@ export const addCourses = async (payload) => {
 
 export const deleteCourseById = async (id) => {
     try {
-        const response = await axios.delete(`${BASH_URL}/courses`,{
+        const response = await axios.delete(`${BASH_URL}/courses`, {
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',
-            }, data : {
-                id : id
+            }, data: {
+                id: id
             }
         })
         return response
@@ -111,7 +111,21 @@ export const getCategories = async () => {
 
 export const getCurretUser = async () => {
     try {
-        const response = await axios.get(`${BASH_URL}/auth/current-user`,{
+        const response = await axios.get(`${BASH_URL}/auth/current-user`, {
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const putCourse = async (payload) => {
+    try {
+        const response = await axios.put(`${BASH_URL}/courses`, payload, {
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',
@@ -125,7 +139,21 @@ export const getCurretUser = async () => {
 
 export const putOrderApprove = async (id) => {
     try {
-        const response = await axios.put(`${BASH_URL}/orders/approve`,{orderId : id},{
+        const response = await axios.put(`${BASH_URL}/orders/approve`, { orderId: id }, {
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const getCourseById = async (id) => {
+    try {
+        const response = await axios.post(`${BASH_URL}/courses/search`, { id: id }, {
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',

@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import ButtonTambahKelas from "../Button/ButtonTambahKelas";
-import { addCourses, getCategories, getCurretUser } from "../../api/coursesAPI"
+import ButtonEditKelas from "../Button/ButtonTambahKelas";
+import { getCategories, getCourseById, getCurretUser, putCourse } from "../../api/coursesAPI"
 
 
-const TambahKelas = ({ addClass, setAddClass }) => {
+const EditKelas = ({ editCourse, setEditCourse, id }) => {
     const [nameCourses, setNameCourses] = useState("")
     const [category, setCategory] = useState("Kategori")
     const [idCategory, setIdCategory] = useState("")//categoryId
@@ -20,9 +20,12 @@ const TambahKelas = ({ addClass, setAddClass }) => {
     const [user, setUser] = useState("")
     const [telegram, setTelegram] = useState("")
     const [image, setImage] = useState("")
-    const handleAddCourse = async () => {
+    const [idCourse, setIdCourse] = useState([])
+
+    const handleEditCourse = async () => {
         try {
             const payload = {
+                id: id,
                 title: nameCourses,
                 image: image,
                 subtitle: "-",
@@ -36,22 +39,42 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                 telegram: telegram,
                 categoryId: idCategory
             }
-            await addCourses(payload)
-            console.log(payload);
+            const result = cekValue(payload, idCourse)
+            await putCourse(result)
+            console.log(result);
         } catch (error) {
             console.log(error)
         }
     }
 
+    const cekValue = (data, idCourse) => {
+        const keys = ['id','title', 'image', 'subtitle', 'description', 'classCode', 'type', 'authorBy', 'rating', 'price', 'level', 'telegram'];
+
+        const updatedData = keys.reduce((result, key) => {
+            result[key] = data[key] === "" ? idCourse[key] : data[key];
+            return result;
+          }, {})
+
+          console.log("akses ",updatedData);
+        return updatedData;
+    };
+
     useEffect(() => {
         getCategories().then(res => {
-            setCategories(res.data.data)
+            setCategories(res.data?.data)
         })
     }, [])
 
     useEffect(() => {
+        getCourseById(id).then(res => {
+            setIdCourse(res.data.data)
+            console.log(res.data.data);
+        })
+    }, [id])
+
+    useEffect(() => {
         getCurretUser().then(res => {
-            setUser(res.data.data.name);
+            setUser(res.data?.data.name);
         })
     }, [])
 
@@ -73,16 +96,16 @@ const TambahKelas = ({ addClass, setAddClass }) => {
 
     return (
         <>
-            {addClass && <div className="fixed inset-0  flex justify-center items-center bg-black/50">
+            {editCourse && <div className="fixed inset-0  flex justify-center items-center bg-black/50">
                 <div className="bg-white rounded-2xl max-w-screen-md mx-auto">
                     <form className="px-44 relative" >
-                        <button type="button" onClick={() => setAddClass(!addClass)}>
+                        <button type="button" onClick={() => setEditCourse(!editCourse)}>
                             <img src="/icon_svg/LiveArea.svg" alt="Close icon" className="absolute top-0 right-0 pt-4 pr-4" />
                         </button>
-                        <h1 className="font-bold py-11 text-2xl text-center text-DARKBLUE05">TambahKelas</h1>
+                        <h1 className="font-bold py-11 text-2xl text-center text-DARKBLUE05">EditKelas</h1>
                         <div className="pb-4">
                             <label className="block pb-2 text-xs font-semibold">Nama Kelas</label>
-                            <input type="text" name="NamaKelas" placeholder="Text" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={nameCourses} onChange={(e) => setNameCourses(e.target.value)} />
+                            <input type="text" name="NamaKelas" placeholder={idCourse.title} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={nameCourses} onChange={(e) => setNameCourses(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 gap-5">
                             <div className="pb-4 relative">
@@ -107,7 +130,7 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                             </div>
                             <div className="pb-4">
                                 <label className="block pb-2 text-xs font-semibold">Kode Kelas</label>
-                                <input type="text" name="Kode Kelas" placeholder="Text" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={classCode} onChange={(e) => setClassCode(e.target.value)} />
+                                <input type="text" name="Kode Kelas" placeholder={idCourse.classCode} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={classCode} onChange={(e) => setClassCode(e.target.value)} />
                             </div>
                         </div>
                         <div className="pb-4 relative">
@@ -137,28 +160,28 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                         </div>
                         <div className="pb-4">
                             <label className="block pb-2 text-xs font-semibold">Harga</label>
-                            <input type="number" min={0} name="Harga" placeholder="Text" className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={price} onChange={(e) => setPrice(e.target.value)} />
+                            <input type="number" min={0} name="Harga" placeholder={idCourse.price} className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={price} onChange={(e) => setPrice(e.target.value)} />
                         </div>
                         <div className="grid gap-5 grid-cols-2">
                             <div className="pb-4">
                                 <label className="block pb-2 text-xs font-semibold">Link Telegram</label>
-                                <input type="text" name="Link Tele" placeholder="www.telegram.com" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={telegram} onChange={(e) => setTelegram(e.target.value)} />
+                                <input type="text" name="Link Tele" placeholder={idCourse.telegram} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={telegram} onChange={(e) => setTelegram(e.target.value)} />
                             </div>
                             <div className="pb-4">
                                 <label className="block pb-2 text-xs font-semibold">Link image</label>
-                                <input type="text" name="Link Image" placeholder="www.image.com" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={image} onChange={(e) => setImage(e.target.value)} />
+                                <input type="text" name="Link Image" placeholder={idCourse.image} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={image} onChange={(e) => setImage(e.target.value)} />
                             </div>
                         </div>
                         <div className="pb-4">
                             <label className="block pb-2 text-xs font-semibold">Materi</label>
-                            <input type="text" name="Materi" placeholder="Paragraph" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 pt-3 pb-20 w-full" value={description} onChange={(e) => setdescription(e.target.value)} />
+                            <input type="text" name="Materi" placeholder={idCourse.subtitle} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 pt-3 pb-20 w-full" value={description} onChange={(e) => setdescription(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-12 gap-[15px] pb-11">
-                            <button type="button" className="col-span-7" onClick={() => handleAddCourse()}>
-                                <div className=""><ButtonTambahKelas background={"#FF0000"} title={"Upload Kelas"}></ButtonTambahKelas></div>
+                            <button type="button" className="col-span-7" onClick={() => handleEditCourse()}>
+                                <div className=""><ButtonEditKelas background={"#FF0000"} title={"Upload Kelas"}></ButtonEditKelas></div>
                             </button>
-                            <button type="button" className="col-span-5" onClick={() => handleAddCourse()}>
-                                <div className="col-span-5"><ButtonTambahKelas background={"#6148FF"} title={"Simpan"}></ButtonTambahKelas></div>
+                            <button type="button" className="col-span-5" onClick={() => handleEditCourse()}>
+                                <div className="col-span-5"><ButtonEditKelas background={"#6148FF"} title={"Simpan"}></ButtonEditKelas></div>
                             </button>
                         </div>
                     </form>
@@ -168,4 +191,4 @@ const TambahKelas = ({ addClass, setAddClass }) => {
     )
 }
 
-export default TambahKelas;
+export default EditKelas;

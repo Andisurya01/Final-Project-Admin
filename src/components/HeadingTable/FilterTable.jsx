@@ -4,19 +4,7 @@ import Checkbox from "../CheckBox/Checkbox";
 
 const FilterTable = () => {
     const [open, setOpen] = useState(false)
-    const [category, setCategory] = useState("Kategori")
-    const [idCategory, setIdCategory] = useState("")//categoryId
-    const [type, setType] = useState("type")//type
-    const [status, setStatus] = useState("status")//status
     const [categories, setCategories] = useState({})
-    const [isHitCategory, setIsHitCategory] = useState(false)
-    const [isHitType, setIsHitType] = useState(false)
-    const [isHitStatus, setIsHitStatus] = useState(false)
-
-    const filterCategory = () => {
-
-    }
-
     useEffect(() => {
         getCategories()
             .then(res => {
@@ -24,16 +12,6 @@ const FilterTable = () => {
                 setCategories(response)
             })
     }, [])
-
-    const handleType = (e, title) => {
-        setType(title)
-        e.preventDefault()
-    }
-
-    const handleStatus = (e, title) => {
-        setStatus(title)
-        e.preventDefault()
-    }
 
     return (
         <div>

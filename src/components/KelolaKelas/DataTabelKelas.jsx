@@ -3,6 +3,7 @@ import { useState } from "react"
 import ButtonAksi from "../Button/ButtonAksi"
 import { deleteCourseById } from "../../api/coursesAPI"
 import ButtonTambahKelas from "../Button/ButtonTambahKelas"
+import EditKelas from "../PopUp/EditKelas"
 
 const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, HargaKelas, id }) => {
     const handleDelete = () => {
@@ -12,6 +13,7 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
         })
     }
 
+    const [editCourse, setEditCourse] = useState(false)
     const [isVerifiedDelete, setIsVerifiedDelete] = useState(false)
     return (
         <section className="px-16">
@@ -23,7 +25,7 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                 <div className="text-[10px] font-bold "><p>{Level}</p></div>
                 <div className="text-[10px] font-bold "><p>{HargaKelas}</p></div>
                 <div className="flex gap-[5px]">
-                    <button>
+                    <button onClick={() => setEditCourse(!editCourse)}>
                         <ButtonAksi title="Ubah" background="#6148FF" />
                     </button>
                     <button onClick={() => setIsVerifiedDelete(!isVerifiedDelete)}>
@@ -38,10 +40,10 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                                     Apakah anda yakin ingin menghapus?
                                 </h1>
                                 <div className="flex gap-[15px] pt-5">
-                                    <button onClick={()=>handleDelete()}>
+                                    <button onClick={() => handleDelete()}>
                                         <ButtonTambahKelas title={"hapus"} background={"#6148FF"}></ButtonTambahKelas>
                                     </button>
-                                    <button onClick={()=>setIsVerifiedDelete(!isVerifiedDelete)}>
+                                    <button onClick={() => setIsVerifiedDelete(!isVerifiedDelete)}>
                                         <ButtonTambahKelas title={"Batal"} background={"#FF0000"}></ButtonTambahKelas>
                                     </button>
                                 </div>
@@ -49,6 +51,7 @@ const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, Harg
                         </div>
                     </section>
                 ) : null}
+                {editCourse ? <EditKelas editCourse={editCourse} setEditCourse={setEditCourse} id={id}/> : null}
             </div>
         </section>
     )
