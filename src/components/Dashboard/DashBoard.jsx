@@ -5,6 +5,7 @@ import { getCategories, orders } from "../../api/coursesAPI";
 import { motion } from "framer-motion";
 import moment from "moment";
 import Checkbox from "../CheckBox/Checkbox";
+import { Icon } from '@iconify/react';
 
 const DashBoard = () => {
     const [ordersContainer, setOrdersContainer] = useState([])
@@ -58,10 +59,10 @@ const DashBoard = () => {
             <section className="flex justify-between content-center px-16 py-10 ">
                 <h1 className="text-xl font-bold ">Kelola Pembayaran</h1>
                 <div className="flex gap-4 items-center">
-                <div className="flex items-center rounded-2xl px-[10px] py-[5px]  border-DARKBLUE05 border" onClick={() => setOpen(!open)}>
-                <img src="/icon_svg/Filter.svg" />
-                <button className="font-bold text-DARKBLUE05 text-base px-2">Filter</button>
-            </div>
+                    <div className="flex items-center rounded-2xl px-[10px] py-[5px] cursor-pointer border-DARKBLUE05 border" onClick={() => setOpen(!open)}>
+                        <img src="/icon_svg/Filter.svg" />
+                        <button className="font-bold text-DARKBLUE05 text-base ml-2">Filter</button>
+                    </div>
             {open && (
                 <div className="fixed inset-0  flex  items-center bg-black/50">
                     <div className="bg-white rounded-2xl max-w-screen-md mx-auto relative p-5">
@@ -116,14 +117,21 @@ const DashBoard = () => {
                             style={{
                                 position: search ? "absolute" : "static"
                             }}
-                            className=" right-0 pr-2" src="/icon_svg/Search.svg" onClick={() => setSearch(!search)} />
+                            className="cursor-pointer right-0 pr-2" src="/icon_svg/Search.svg" onClick={() => setSearch(!search)} />
                     </div>
                 </div>
             </section>
             <Tabel></Tabel>
             {
                 records?.filter((item) => {
-                    return contentSearch.toLocaleLowerCase === '' ? item : item.user.name.toLowerCase().includes(contentSearch.toLowerCase())
+                    // return contentSearch.toLocaleLowerCase === '' ? item : item.user.name.toLowerCase().includes(contentSearch.toLowerCase())
+                    const isCategoryMatch = contentSearch.toLocaleLowerCase() === '' ||
+                    handleCategory(item.course.categoryId).toLowerCase().includes(contentSearch.toLowerCase());
+
+                    const isUserMatch = contentSearch.toLocaleLowerCase() === '' ||
+                    item.user.name.toLowerCase().includes(contentSearch.toLowerCase());
+
+                    return isCategoryMatch || isUserMatch;
                 }).map((data) => {
                     const newDate = moment(data.createdAt).format('lll');
                     handleCategory(data.course.categoryId)
@@ -144,22 +152,22 @@ const DashBoard = () => {
                     )
                 })
             }
-            <div className="flex  gap-2 justify-center pt-10">
+            <div className="flex gap-4 justify-center py-10">
                 <div>
-                    <button className="px-3 py-2 border-2 border-DARKBLUE05 rounded-xl" onClick={prePage}>Prev</button>
+                    <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={prePage}><Icon icon="ion:arrow-back-outline" className="text-2xl" /></button>
                 </div>
                 <div className="flex gap-2 items-center">
                     {numbers.map((number, i) => (
                         <div key={i} >
                             <button
-                                className={`${currentPage === number ? 'bg-DARKBLUE05 text-white' : ''} px-3 py-2 border-2 border-DARKBLUE05 rounded-xl`}
+                                className={`${currentPage === number ? 'bg-DARKBLUE05 text-white' : 'bg-LIGHTBLUE05 text-black'} w-10 h-10 rounded-full hover:bg-DARKBLUE05 hover:text-white`}
                                 onClick={() => changeCurrentPage(number)}>{number}</button>
                         </div>
                     ))}
 
                 </div>
                 <div>
-                    <button className="px-3 py-2 border-2 border-DARKBLUE05 rounded-xl" onClick={nextPage}>Next</button>
+                <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={nextPage}><Icon icon="ion:arrow-forward-outline" className="text-2xl" /></button>
                 </div>
             </div>
 
