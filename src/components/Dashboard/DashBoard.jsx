@@ -115,8 +115,6 @@ const DashBoard = () => {
         const firstIndex = lastIndex - 5;
         const paginatedData = filteredData.slice(firstIndex, lastIndex);
 
-        console.log(paginatedData);
-
         return paginatedData.map((data) => (
             <DataStatusPembayaran
                 key={data.id}
@@ -185,9 +183,9 @@ const DashBoard = () => {
                                         </div>
 
                                     </div>
-                                    <div className=" bottom-0 right-0 pt-3 flex justify-center gap-2">
-                                        <button id="filterButton" className="bg-SUCCESS text-white text-sm font-medium py-2 px-3 rounded-lg" onClick={() => setOrdersContainer(dataFilter)}>Terapkan</button>
-                                        <button id="deleteFilter" className="bg-WARNING text-white text-sm font-medium py-2 px-3 rounded-lg" onClick={() => hapusFilter()}>Hapus Filter</button>
+                                    <div className=" bottom-0 right-0 flex flex-col justify-center gap-2">
+                                        <button id="filterButton" className="bg-SUCCESS text-white text-sm font-medium px-3 h-10 rounded-lg" onClick={() => setOrdersContainer(dataFilter)}>Terapkan</button>
+                                        <button id="deleteFilter" className="bg-WARNING text-white text-sm font-medium px-3 h-10 rounded-lg" onClick={() => hapusFilter()}>Hapus Filter</button>
                                     </div>
                                 </div>
                             </div>
@@ -219,8 +217,8 @@ const DashBoard = () => {
                         (number, i) => (
                             <div key={i}>
                                 <button
-                                    className={`${currentPage === number + 1 ? "bg-DARKBLUE05 text-white" : ""
-                                        } px-3 py-2 border-2 border-DARKBLUE05 rounded-xl`}
+                                    className={`${currentPage === number + 1 ? "bg-DARKBLUE05 text-white" : "bg-LIGHTBLUE05"
+                                        } w-10 h-10 rounded-full hover:bg-DARKBLUE05 hover:text-white`}
                                     onClick={() => changeCurrentPage(number + 1)}
                                 >
                                     {number + 1}

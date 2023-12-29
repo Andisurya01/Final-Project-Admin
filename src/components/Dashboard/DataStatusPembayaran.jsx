@@ -37,20 +37,6 @@ const DataStatusPembayaran = ({ ID , UserId , IsCourseId ,  Kategori, KelasPremi
         })
     }
 
-    // const createNotification = (course) => {
-    //     const payload = {
-    //         title : 'Kelas Order',
-    //         subtitle : `Kelas ${course} sudah berjalan`,
-    //         description :`Ikuti kelas hingga selesai dan mendapatkan value yang diharapkan`
-    //     }
-
-    //     consumeNotificationApi.postNotification(payload).then(res => {
-    //         if(res.status != 'OK'){
-    //             return false;
-    //         }
-    //     })
-    // }
-
     return (
         <section className="px-16">
             <div className="grid grid-cols-8 px-5 py-3 gap-3 items-center">

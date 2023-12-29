@@ -41,7 +41,6 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
             }
             const result = cekValue(payload, idCourse)
             await putCourse(result)
-            console.log(result);
         } catch (error) {
             console.log(error)
         }
@@ -55,7 +54,6 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
             return result;
           }, {})
 
-          console.log("akses ",updatedData);
         return updatedData;
     };
 
@@ -68,7 +66,6 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     useEffect(() => {
         getCourseById(id).then(res => {
             setIdCourse(res.data.data)
-            console.log(res.data.data);
         })
     }, [id])
 

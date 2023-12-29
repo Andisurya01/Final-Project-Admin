@@ -37,7 +37,6 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                 categoryId: idCategory
             }
             await addCourses(payload)
-            console.log(payload);
         } catch (error) {
             console.log(error)
         }

@@ -7,10 +7,7 @@ import EditKelas from "../PopUp/EditKelas"
 
 const DataTabelKelas = ({ KodeKelas, Kategori, NamaKelas, TipeKelas, Level, HargaKelas, id }) => {
     const handleDelete = () => {
-        deleteCourseById(id).then(res => {
-            console.log(id);
-            console.log(res.status);
-        })
+        deleteCourseById(id)
     }
 
     const [editCourse, setEditCourse] = useState(false)

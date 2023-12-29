@@ -3,7 +3,6 @@ import { getCourses } from "../../api/coursesAPI";
 import Tabel from "../KelolaKelas/Tabel";
 import DataTabelKelas from "./DataTabelKelas";
 import rupiah from "../../utils/Rupiah";
-// import FilterTable from "../HeadingTable/FilterTable";
 import { motion } from "framer-motion";
 import TambahKelas from "../PopUp/TambahKelas";
 import { Icon } from '@iconify/react';
@@ -34,7 +33,6 @@ const KelolaKelas = () => {
     }, [contentSearch, courses]);
     
     useEffect(() => {
-        // Update displayedData saat dataFilter berubah
         const lastIndex = currentPage * 5;
         const firstIndex = lastIndex - 5;
         const paginatedData = dataFilter.slice(firstIndex, lastIndex);
@@ -109,8 +107,8 @@ const KelolaKelas = () => {
                         (number, i) => (
                             <div key={i}>
                                 <button
-                                    className={`${currentPage === number + 1 ? "bg-DARKBLUE05 text-white" : ""
-                                        } px-3 py-2 border-2 border-DARKBLUE05 rounded-xl`}
+                                    className={`${currentPage === number + 1 ? "bg-DARKBLUE05 text-white" : "bg-LIGHTBLUE05"
+                                        } w-10 h-10 rounded-full hover:bg-DARKBLUE05 hover:text-white`}
                                     onClick={() => changeCurrentPage(number + 1)}
                                 >
                                     {number + 1}

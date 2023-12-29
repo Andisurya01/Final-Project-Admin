@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 
 
 const DashboardPages = () => {
-    // const [courses, setCourses] = useState([])
     const [users, setUsers] = useState(0)
     const [premiumCourses, setPremiumCourses] = useState(0)
     const [totalCourses, setTotalCourses] = useState(0)
@@ -31,7 +30,6 @@ const DashboardPages = () => {
         totalClass()
             .then((response) => {
                 if (!response.status === "OK") {
-                    // Jika data kosong atau tidak sesuai dengan format yang diharapkan
                     throw new Error('Data tidak valid');
                 }
                 const hitung = response.data.data
