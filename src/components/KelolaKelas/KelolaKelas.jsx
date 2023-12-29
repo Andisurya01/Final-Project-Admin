@@ -6,6 +6,7 @@ import rupiah from "../../utils/Rupiah";
 // import FilterTable from "../HeadingTable/FilterTable";
 import { motion } from "framer-motion";
 import TambahKelas from "../PopUp/TambahKelas";
+import { Icon } from '@iconify/react';
 
 
 const KelolaKelas = () => {
@@ -101,7 +102,7 @@ const KelolaKelas = () => {
             })}
             <div className="flex gap-2 justify-center pt-10">
                 <div>
-                    <button className="px-3 py-2 border-2 border-DARKBLUE05 rounded-xl" onClick={prePage}>Prev</button>
+                    <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={prePage}><Icon icon="ion:arrow-back-outline" className="text-2xl" /></button>
                 </div>
                 <div className="flex gap-2 items-center">
                     {[...Array(Math.ceil(courses.length / 5)).keys()].map(
@@ -119,7 +120,7 @@ const KelolaKelas = () => {
                     )}
                 </div>
                 <div>
-                    <button className="px-3 py-2 border-2 border-DARKBLUE05 rounded-xl" onClick={nextPage}>Next</button>
+                <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={nextPage}><Icon icon="ion:arrow-forward-outline" className="text-2xl" /></button>
                 </div>
             </div>
         </section>

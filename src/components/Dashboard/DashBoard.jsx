@@ -5,6 +5,7 @@ import { getCategories, orders } from "../../api/coursesAPI";
 import { motion } from "framer-motion";
 import moment from "moment";
 import Checkbox from "../CheckBox/Checkbox";
+import { Icon } from '@iconify/react';
 
 const DashBoard = () => {
     const [ordersContainer, setOrdersContainer] = useState([]);
@@ -154,9 +155,9 @@ const DashBoard = () => {
             <section className="flex justify-between content-center px-16 py-10 ">
                 <h1 className="text-xl font-bold ">Kelola Pembayaran</h1>
                 <div className="flex gap-4 items-center">
-                    <div className="flex items-center rounded-2xl px-[10px] py-[5px]  border-DARKBLUE05 border" onClick={() => setOpen(!open)}>
+                    <div className="flex items-center rounded-2xl px-[10px] py-[5px] cursor-pointer border-DARKBLUE05 border" onClick={() => setOpen(!open)}>
                         <img src="/icon_svg/Filter.svg" />
-                        <button className="font-bold text-DARKBLUE05 text-base px-2">Filter</button>
+                        <button className="font-bold text-DARKBLUE05 text-base ml-2">Filter</button>
                     </div>
                     {open && (
                         <div className="fixed inset-0 flex  items-center bg-black/50">
@@ -182,17 +183,16 @@ const DashBoard = () => {
                                                 />
                                             </button>
                                         </div>
+
                                     </div>
-                                </div>
-                                <div className=" bottom-0 right-0 pt-3 flex justify-center gap-2">
-                                    <button id="filterButton" className="bg-SUCCESS text-white text-sm font-medium py-2 px-3 rounded-lg" onClick={() => setOrdersContainer(dataFilter)}>Terapkan</button>
-                                    <button id="deleteFilter" className="bg-WARNING text-white text-sm font-medium py-2 px-3 rounded-lg" onClick={() => hapusFilter()}>Hapus Filter</button>
+                                    <div className=" bottom-0 right-0 pt-3 flex justify-center gap-2">
+                                        <button id="filterButton" className="bg-SUCCESS text-white text-sm font-medium py-2 px-3 rounded-lg" onClick={() => setOrdersContainer(dataFilter)}>Terapkan</button>
+                                        <button id="deleteFilter" className="bg-WARNING text-white text-sm font-medium py-2 px-3 rounded-lg" onClick={() => hapusFilter()}>Hapus Filter</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     )}
-                    {/* <input id='fieldClass' onChange={(event) => { searchCourse(event) }} type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" /> */}
-
                     <div className="flex relative items-center">
                         <motion.input
                             style={{
@@ -203,38 +203,16 @@ const DashBoard = () => {
                             style={{
                                 position: search ? "absolute" : "static"
                             }}
-                            className=" right-0 pr-2" src="/icon_svg/Search.svg" onClick={() => setSearch(!search)} />
+                            className="cursor-pointer right-0 pr-2" src="/icon_svg/Search.svg" onClick={() => setSearch(!search)} />
                     </div>
                 </div>
             </section>
             <Tabel></Tabel>
             {renderOrders()}
-            {/* {
-                ordersContainer?.filter((item) => {
-                    return contentSearch.toLocaleLowerCase() === '' ? item : item.user.name.toLowerCase().includes(contentSearch.toLowerCase())
-                }).map((data) => {
-                    const newDate = moment(data.createdAt).format('lll');
-                    handleCategory(data.course.categoryId)
-                    return (
-                        <DataStatusPembayaran
-                            key={data.id}
-                            ID={data.user.name}
-                            UserId={data.user.id}
-                            Kategori={handleCategory(data.course.categoryId)}
-                            KelasPremium={data.course.type}
-                            Status={data.status}
-                            MetodePembayaran={"Credit Card"}
-                            TanggalBayar={newDate}
-                            CourseId={data.id}
-                            IsCourseId={data.course.id}
-                        >
-                        </DataStatusPembayaran>
-                    )
-                })
-            } */}
+            
             <div className="flex  gap-2 justify-center pt-10">
                 <div>
-                    <button className="px-3 py-2 border-2 border-DARKBLUE05 rounded-xl" onClick={prePage}>Prev</button>
+                    <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={prePage}><Icon icon="ion:arrow-back-outline" className="text-2xl" /></button>
                 </div>
                 <div className="flex gap-2 items-center">
                     {[...Array(Math.ceil(ordersContainer.length / 5)).keys()].map(
@@ -253,7 +231,7 @@ const DashBoard = () => {
 
                 </div>
                 <div>
-                    <button className="px-3 py-2 border-2 border-DARKBLUE05 rounded-xl" onClick={nextPage}>Next</button>
+                    <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={nextPage}><Icon icon="ion:arrow-forward-outline" className="text-2xl" /></button>
                 </div>
             </div>
 
