@@ -1,17 +1,8 @@
-import { useState, useEffect } from "react";
-import { getCategories } from "../../api/coursesAPI";
+import { useState } from "react";
 import Checkbox from "../CheckBox/Checkbox";
 
-const FilterTable = () => {
+const FilterTablePayment = () => {
     const [open, setOpen] = useState(false)
-    const [categories, setCategories] = useState({})
-    useEffect(() => {
-        getCategories()
-            .then(res => {
-                const response = res.data.data
-                setCategories(response)
-            })
-    }, [])
 
     return (
         <div>
@@ -20,25 +11,13 @@ const FilterTable = () => {
                 <button className="font-bold text-DARKBLUE05 text-base px-2">Filter</button>
             </div>
             {open && (
-                <div className="fixed inset-0  flex  items-center bg-black/50">
-                    <div className="bg-white rounded-2xl max-w-screen-md mx-auto relative p-5">
+                <div className="fixed inset-0 flex  items-center bg-black/50">
+                    <div className="bg-white relative rounded-2xl max-w-screen-md mx-auto p-5">
                         <button type="button" onClick={() => setOpen(!open)}>
                             <img src="/icon_svg/LiveArea.svg" alt="Close icon" className="absolute top-0 right-0 pt-4 pr-4" />
                         </button>
                         <h1 className="pb-3 text-lg font-bold">Filter By</h1>
                         <div className="flex gap-5">
-                            <div className="relative">
-                                <p className="py-2 px-3 border-b-2">
-                                    Category
-                                </p>
-                                {categories.map((data) => {
-                                    return (
-                                        <div key={data.id} className=" bg-white">
-                                            <Checkbox title={data.title} id={data.id} value={data.id} />
-                                        </div>
-                                    )
-                                })}
-                            </div>
                             <div className="relative">
                                 <p className="py-2 px-3 border-b-2" >
                                     Type
@@ -60,6 +39,10 @@ const FilterTable = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className=" bottom-0 right-0 pt-3 flex justify-center gap-2">
+                            <button id="filterButton" className="bg-SUCCESS text-white text-sm font-medium py-2 px-3 rounded-lg">Terapkan</button>
+                            <button id="deleteFilter" className="bg-WARNING text-white text-sm font-medium py-2 px-3 rounded-lg">Hapus Filter</button>
+                        </div>
                     </div>
                 </div>
             )}
@@ -67,4 +50,4 @@ const FilterTable = () => {
     )
 }
 
-export default FilterTable;
+export default FilterTablePayment;

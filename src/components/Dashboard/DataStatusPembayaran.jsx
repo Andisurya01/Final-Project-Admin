@@ -3,7 +3,7 @@ import { putOrderApprove } from "../../api/coursesAPI"
 import ButtonAksi from "../Button/ButtonAksi"
 import { consumeCourseTrackingsApi } from "../../api/courseTrackings"
 import { consumeOrderApi } from "../../api/order"
-import { consumeNotificationApi } from "../../api/notification"
+
 const DataStatusPembayaran = ({ ID , UserId , IsCourseId ,  Kategori, KelasPremium, Status, MetodePembayaran, TanggalBayar, CourseId }) => {
     const handleApproveCourse = async () => {
 
