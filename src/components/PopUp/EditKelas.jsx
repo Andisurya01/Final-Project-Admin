@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import ButtonEditKelas from "../Button/ButtonTambahKelas";
 import { getCategories, getCourseById, getCurretUser, putCourse } from "../../api/coursesAPI"
+import EditModules from "./EditModules";
 
 
 const EditKelas = ({ editCourse, setEditCourse, id }) => {
@@ -21,6 +22,7 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     const [telegram, setTelegram] = useState("")
     const [image, setImage] = useState("")
     const [idCourse, setIdCourse] = useState([])
+    const [editModules, setEditModules] = useState(false)
 
     const handleEditCourse = async () => {
         try {
@@ -47,12 +49,12 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     }
 
     const cekValue = (data, idCourse) => {
-        const keys = ['id','title', 'image', 'subtitle', 'description', 'classCode', 'type', 'authorBy', 'rating', 'price', 'level', 'telegram'];
+        const keys = ['id', 'title', 'image', 'subtitle', 'description', 'classCode', 'type', 'authorBy', 'rating', 'price', 'level', 'telegram'];
 
         const updatedData = keys.reduce((result, key) => {
             result[key] = data[key] === "" ? idCourse[key] : data[key];
             return result;
-          }, {})
+        }, {})
 
         return updatedData;
     };
@@ -76,17 +78,20 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     }, [])
 
     const handleCategory = (e, title, id) => {
+        e.stopPropagation()
         setCategory(title)
         setIdCategory(id)
         e.preventDefault()
     }
 
     const handleType = (e, title) => {
+        e.stopPropagation()
         setType(title)
         e.preventDefault()
     }
 
     const handleLevel = (e, title) => {
+        e.stopPropagation()
         setLevel(title)
         e.preventDefault()
     }
@@ -105,7 +110,7 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                             <input type="text" name="NamaKelas" placeholder={idCourse.title} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={nameCourses} onChange={(e) => setNameCourses(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 gap-5">
-                            <div className="pb-4 relative">
+                            <div className="pb-4 relative z-30">
                                 <label className="block pb-2 text-xs font-semibold">Kategori</label>
                                 <button type="button" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full text-start flex justify-between items-center" onClick={() => setIsHitCategory(!isHitCategory)}>
                                     <p>{category}</p>
@@ -116,7 +121,7 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                                         {categories.map((data) => {
                                             return (
                                                 <button key={data.id} onClick={(e) => handleCategory(e, data.title, data.id)}
-                                                    className="text-sm px-4 py-3 w-fulla bg-white block">
+                                                    className="text-sm px-4 py-3  w-fulla bg-white block">
                                                     {data.title}
                                                 </button>
                                             )
@@ -130,7 +135,7 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                                 <input type="text" name="Kode Kelas" placeholder={idCourse.classCode} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={classCode} onChange={(e) => setClassCode(e.target.value)} />
                             </div>
                         </div>
-                        <div className="pb-4 relative">
+                        <div className="pb-4 relative z-20">
                             <label className="block pb-2 text-xs font-semibold">Tipe Kelas</label>
                             <button type="button" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full text-start flex justify-between items-center" onClick={() => setIsHitType(!isHitType)}>
                                 <p>{type}</p>
@@ -142,7 +147,7 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                                     <button className="text-sm px-4 py-3 w-full" onClick={(e) => handleType(e, "PREMIUM")}>Premium</button>
                                 </div>}
                         </div>
-                        <div className="pb-4 relative">
+                        <div className="pb-4 relative z-10">
                             <label className="block pb-2 text-xs font-semibold">Level</label>
                             <button type="button" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full text-start flex justify-between items-center" onClick={() => setIsHitLevel(!isHitLevel)}>
                                 <p>{level}</p>
@@ -174,13 +179,14 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                             <input type="text" name="Materi" placeholder={idCourse.subtitle} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 pt-3 pb-20 w-full" value={description} onChange={(e) => setdescription(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-12 gap-[15px] pb-11">
-                            <button type="button" className="col-span-7" onClick={() => handleEditCourse()}>
-                                <div className=""><ButtonEditKelas background={"#FF0000"} title={"Upload Kelas"}></ButtonEditKelas></div>
+                            <button type="button" className="col-span-7" onClick={() => setEditModules(!editModules)}>
+                                <div className=""><ButtonEditKelas background={"#FF0000"} title={"Edit Module"}></ButtonEditKelas></div>
                             </button>
                             <button type="button" className="col-span-5" onClick={() => handleEditCourse()}>
                                 <div className="col-span-5"><ButtonEditKelas background={"#6148FF"} title={"Simpan"}></ButtonEditKelas></div>
                             </button>
                         </div>
+                        {editModules && <EditModules editModules={editModules} setEditModules={setEditModules} id={id} />}
                     </form>
                 </div>
             </div>}

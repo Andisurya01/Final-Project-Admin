@@ -68,7 +68,7 @@ const KelolaKelas = () => {
                         </div>
                     </div>
                     {/* <FilterTable></FilterTable> */}
-                    <div className="flex relative items-center">
+                    <div className="flex relative items-center z-0">
                         <motion.input
                             transition={{ duration: 5 }}
                             style={{

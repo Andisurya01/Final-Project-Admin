@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import ButtonTambahKelas from "../Button/ButtonTambahKelas";
 import { addCourses, getCategories, getCurretUser } from "../../api/coursesAPI"
+import AddModules from "./addModules";
 
 
 const TambahKelas = ({ addClass, setAddClass }) => {
@@ -20,6 +21,8 @@ const TambahKelas = ({ addClass, setAddClass }) => {
     const [user, setUser] = useState("")
     const [telegram, setTelegram] = useState("")
     const [image, setImage] = useState("")
+    const [addModules, setAddModules] = useState(false)
+
     const handleAddCourse = async () => {
         try {
             const payload = {
@@ -72,7 +75,7 @@ const TambahKelas = ({ addClass, setAddClass }) => {
 
     return (
         <>
-            {addClass && <div className="fixed inset-0  flex justify-center items-center bg-black/50">
+            {addClass && <div className="fixed inset-0 z-10 flex justify-center items-center bg-black/50">
                 <div className="bg-white rounded-2xl max-w-screen-md mx-auto">
                     <form className="px-44 relative" >
                         <button type="button" onClick={() => setAddClass(!addClass)}>
@@ -84,7 +87,7 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                             <input type="text" name="NamaKelas" placeholder="Text" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={nameCourses} onChange={(e) => setNameCourses(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 gap-5">
-                            <div className="pb-4 relative">
+                            <div className="pb-4 relative z-30">
                                 <label className="block pb-2 text-xs font-semibold">Kategori</label>
                                 <button type="button" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full text-start flex justify-between items-center" onClick={() => setIsHitCategory(!isHitCategory)}>
                                     <p>{category}</p>
@@ -109,7 +112,7 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                                 <input type="text" name="Kode Kelas" placeholder="Text" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={classCode} onChange={(e) => setClassCode(e.target.value)} />
                             </div>
                         </div>
-                        <div className="pb-4 relative">
+                        <div className="pb-4 relative z-20">
                             <label className="block pb-2 text-xs font-semibold">Tipe Kelas</label>
                             <button type="button" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full text-start flex justify-between items-center" onClick={() => setIsHitType(!isHitType)}>
                                 <p>{type}</p>
@@ -121,7 +124,7 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                                     <button className="text-sm px-4 py-3 w-full" onClick={(e) => handleType(e, "PREMIUM")}>Premium</button>
                                 </div>}
                         </div>
-                        <div className="pb-4 relative">
+                        <div className="pb-4 relative z-10">
                             <label className="block pb-2 text-xs font-semibold">Level</label>
                             <button type="button" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full text-start flex justify-between items-center" onClick={() => setIsHitLevel(!isHitLevel)}>
                                 <p>{level}</p>
@@ -153,13 +156,14 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                             <input type="text" name="Materi" placeholder="Paragraph" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 pt-3 pb-20 w-full" value={description} onChange={(e) => setdescription(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-12 gap-[15px] pb-11">
-                            <button type="button" className="col-span-7" onClick={() => handleAddCourse()}>
-                                <div className=""><ButtonTambahKelas background={"#FF0000"} title={"Upload Kelas"}></ButtonTambahKelas></div>
+                            <button type="button" className="col-span-7" onClick={() => setAddModules(!addModules)}>
+                                <div className=""><ButtonTambahKelas background={"#FF0000"} title={"Tambah Module"}></ButtonTambahKelas></div>
                             </button>
                             <button type="button" className="col-span-5" onClick={() => handleAddCourse()}>
                                 <div className="col-span-5"><ButtonTambahKelas background={"#6148FF"} title={"Simpan"}></ButtonTambahKelas></div>
                             </button>
                         </div>
+                        {addModules && <AddModules addModules={addModules} setAddModules={setAddModules} />}
                     </form>
                 </div>
             </div>}
