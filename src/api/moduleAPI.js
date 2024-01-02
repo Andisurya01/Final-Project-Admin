@@ -60,3 +60,35 @@ export const putModule = async (payload) => {
         return error
     }
 }
+
+
+export const deleteModule = async (id) => {
+    try {
+        const response = await axios.delete(`${BASH_URL}/modules`, {
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            },
+            data: {
+                id
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const putModuleById = async (payload) => {
+    try {
+        const response = await axios.put(`${BASH_URL}/modules`, payload, {
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}
