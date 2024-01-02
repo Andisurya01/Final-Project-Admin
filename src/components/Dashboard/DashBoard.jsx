@@ -18,6 +18,7 @@ const DashBoard = () => {
     const [open, setOpen] = useState(false);
     const [approvedChecked, setApprovedChecked] = useState(false);
     const [waitingChecked, setWaitingChecked] = useState(false);
+    const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
         orders(currentPage, 5)
@@ -59,11 +60,21 @@ const DashBoard = () => {
     }
 
     const nextPage = () => {
-        if (currentPage !== Math.ceil(ordersContainer.length / 5)) {
-            setCurrentPage(currentPage + 1)
+        const totalPages = Math.ceil(filteredData.length / 5);
+        if (currentPage !== totalPages) {
+            setCurrentPage(currentPage + 1);
         }
-    }
+    };
+    
+    useEffect(() => {
+        const updatedFilteredData = ordersContainer
+            .filter((item) =>
+                item.user.name.toLowerCase().includes(contentSearch.toLowerCase())
+            )
+            .filter((item) => dataFilter.length === 0 || dataFilter.includes(item));
 
+        setFilteredData(updatedFilteredData);
+    }, [contentSearch, dataFilter, ordersContainer]);
 
     const filterStatus = () => {
         let approvedSet = new Set();
@@ -100,17 +111,12 @@ const DashBoard = () => {
         setApprovedChecked(document.getElementById('APPROVED').checked);
         setWaitingChecked(document.getElementById('WAITING').checked);
 
-
         setDataFilter(filterList);
+        setCurrentPage(1);
+
     };
 
     const renderOrders = () => {
-        const filteredData = ordersContainer
-            .filter((item) =>
-                item.user.name.toLowerCase().includes(contentSearch.toLowerCase())
-            )
-            .filter((item) => dataFilter.length === 0 || dataFilter.includes(item));
-
         const lastIndex = currentPage * 5;
         const firstIndex = lastIndex - 5;
         const paginatedData = filteredData.slice(firstIndex, lastIndex);
@@ -133,6 +139,8 @@ const DashBoard = () => {
 
     const hapusFilter = () => {
         setOrdersContainer(order)
+        setApprovedChecked(false);
+        setWaitingChecked(false);
         if (document.getElementById('APPROVED').checked === true) {
             document.getElementById('APPROVED').addEventListener('click', function () {
             })
@@ -144,6 +152,7 @@ const DashBoard = () => {
             })
             document.getElementById('WAITING').click();
         }
+        setCurrentPage(1);
     };
 
 
@@ -184,7 +193,6 @@ const DashBoard = () => {
 
                                     </div>
                                     <div className=" bottom-0 right-0 flex flex-col justify-center gap-2">
-                                        <button id="filterButton" className="bg-SUCCESS text-white text-sm font-medium px-3 h-10 rounded-lg" onClick={() => setOrdersContainer(dataFilter)}>Terapkan</button>
                                         <button id="deleteFilter" className="bg-WARNING text-white text-sm font-medium px-3 h-10 rounded-lg" onClick={() => hapusFilter()}>Hapus Filter</button>
                                     </div>
                                 </div>
@@ -213,7 +221,7 @@ const DashBoard = () => {
                     <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={prePage}><Icon icon="ion:arrow-back-outline" className="text-2xl" /></button>
                 </div>
                 <div className="flex gap-2 items-center">
-                    {[...Array(Math.ceil(ordersContainer.length / 5)).keys()].map(
+                    {[...Array(Math.ceil(filteredData.length / 5)).keys()].map(
                         (number, i) => (
                             <div key={i}>
                                 <button
@@ -228,6 +236,7 @@ const DashBoard = () => {
                     )}
 
                 </div>
+                
                 <div>
                     <button className="w-10 h-10 bg-LIGHTBLUE05 rounded-full hover:bg-DARKBLUE05 hover:text-white flex items-center justify-center" onClick={nextPage}><Icon icon="ion:arrow-forward-outline" className="text-2xl" /></button>
                 </div>
