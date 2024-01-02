@@ -2,7 +2,7 @@
 import { useEffect } from "react"
 import { getCourses } from "../../api/coursesAPI"
 import { useState } from "react"
-import AddModules from "./addModules"
+import AddModules from "./AddModules"
 import EditModulesById from "./EditModulesById"
 import { deleteModule } from "../../api/moduleAPI"
 import { putModule } from "../../api/moduleAPI"
