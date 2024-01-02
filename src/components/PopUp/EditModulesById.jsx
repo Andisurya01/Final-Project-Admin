@@ -30,9 +30,8 @@ const EditModulesById = ({ id, modules, setModules }) => {
       }
       const response = await putModule(payload)
       console.log(response);
-
     } catch (error) {
-      console.log(error);
+      return error
     }
   }
 
@@ -116,7 +115,7 @@ const EditModulesById = ({ id, modules, setModules }) => {
               <ButtonTambahKelas
                 title={"Simpan Edit"}
                 background={"#6148FF"}
-                onClick={onSubmit}
+                onClick={()=>onSubmit()}
               ></ButtonTambahKelas>
             </div>
           </div>

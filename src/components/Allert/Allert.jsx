@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-const AllertReset = ({ message, type,duration, onClose }) => {
+const Allert = ({ message, type,duration, onClose }) => {
     let bgColor = "";
-    if (type === "warning") {
-      bgColor = "bg-WARNING";
-    } else if (type === "success") {
+    if (type === "OK") {
       bgColor = "bg-SUCCESS";
+    } else {
+      bgColor = "bg-WARNING";
     }
     useEffect(() => {
       const timer = setTimeout(() => {
@@ -16,10 +16,10 @@ const AllertReset = ({ message, type,duration, onClose }) => {
     }, [duration, onClose]);
   
     return (
-      <div className={`${bgColor} text-white max-w-fit px-4 py-2 rounded-lg text-xs`}>
+      <div className={`${bgColor} text-white max-w-fit px-4 py-2 rounded-full`}>
         {message}
       </div>
     );
   };
-  export default AllertReset;
+  export default Allert
   

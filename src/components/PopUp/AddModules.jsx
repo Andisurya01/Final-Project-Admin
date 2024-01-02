@@ -1,6 +1,7 @@
 import { postModule } from "../../api/moduleAPI"
 import ButtonTambahKelas from "../Button/ButtonTambahKelas"
 import { useState } from "react"
+import AllertReset from "../Allert/AllertReset"
 
 /* eslint-disable react/prop-types */
 const AddModules = ({ addModules, id }) => {
@@ -9,6 +10,9 @@ const AddModules = ({ addModules, id }) => {
     const [video, setVideo] = useState("")
     const [time, setTime] = useState("")
     const [isHitChapter, setIsHitChapter] = useState(false)
+    const [showTopPopup, setShowTopPopup] = useState(false);
+    const [message, setMessage] = useState("");
+    const [type, setType] = useState("");
 
     const onSubmit = async () => {
         try {
@@ -22,7 +26,8 @@ const AddModules = ({ addModules, id }) => {
             console.log(payload);
             const response = await postModule(payload)
             console.log(response);
-
+            setType(response.data.status)
+            setMessage(response.data.message)
         } catch (error) {
             console.log(error);
         }
@@ -32,6 +37,14 @@ const AddModules = ({ addModules, id }) => {
         setChapter(title)
         e.preventDefault()
     }
+    
+    const handleClick = () => {
+        setShowTopPopup(true);
+        setTimeout(() => {
+            setShowTopPopup(false);
+        }, 5000)
+    };
+
 
     return (
         <>
@@ -55,8 +68,12 @@ const AddModules = ({ addModules, id }) => {
                 <label className="pt-2">Video</label>
                 <input type="text" className="border-2 border-neutral-200 text-sm rounded-xl px-4 py-3 mb-2" placeholder="video" onChange={(e) => setVideo(e.target.value)}></input>
                 <button type="button" onClick={onSubmit}>
-                    <ButtonTambahKelas title={"Tambah"} background={"#6148FF"} onClick={onSubmit}></ButtonTambahKelas>
+                    <ButtonTambahKelas title={"Tambah"} background={"#6148FF"} onClick={{onSubmit, handleClick}}></ButtonTambahKelas>
                 </button>
+                {showTopPopup && (<div className=" text-black flex justify-center items-center -translate-y-56">
+                    <AllertReset message={message} type={type} onClose={handleClick} duration={5000} />
+                </div>
+                )}
             </div>}
         </>
     )

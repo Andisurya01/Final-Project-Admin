@@ -112,6 +112,10 @@ export const getCategories = async () => {
 export const getCurretUser = async () => {
     try {
         const response = await axios.get(`${BASH_URL}/auth/current-user`, {
+            params: {
+                sortBy: 'createdAt',
+                order: 'desc'
+              },
             headers: {
                 'Authorization': `Bearer ${tokenCookie}`,
                 'Content-Type': 'application/json',

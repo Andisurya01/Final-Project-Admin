@@ -40,6 +40,15 @@ const TambahKelas = ({ addClass, setAddClass }) => {
                 categoryId: idCategory
             }
             await addCourses(payload)
+            setNameCourses("")
+            setCategory("Kategori")
+            setClassCode("")
+            setType("type")
+            setLevel("level")
+            setPrice(0)
+            setdescription("")
+            setTelegram("")
+            setImage("")
         } catch (error) {
             console.log(error)
         }

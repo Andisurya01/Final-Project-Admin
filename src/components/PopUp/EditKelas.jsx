@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ButtonEditKelas from "../Button/ButtonTambahKelas";
 import { getCategories, getCourseById, getCurretUser, putCourse } from "../../api/coursesAPI"
 import EditModules from "./EditModules";
+import AllertReset from "../Allert/AllertReset";
 
 
 const EditKelas = ({ editCourse, setEditCourse, id }) => {
@@ -12,7 +13,6 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     const [classCode, setClassCode] = useState("")
     const [type, setType] = useState("type")//type
     const [level, setLevel] = useState("level")//level
-    const [price, setPrice] = useState(0)
     const [description, setdescription] = useState("")
     const [categories, setCategories] = useState({})
     const [isHitCategory, setIsHitCategory] = useState(false)
@@ -23,6 +23,9 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     const [image, setImage] = useState("")
     const [idCourse, setIdCourse] = useState([])
     const [editModules, setEditModules] = useState(false)
+    const [showTopPopup, setShowTopPopup] = useState(false);
+    const [message, setMessage] = useState("");
+    const [typepop, setTypepop] = useState("");
 
     const handleEditCourse = async () => {
         try {
@@ -41,8 +44,11 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                 telegram: telegram,
                 categoryId: idCategory
             }
-            const result = cekValue(payload, idCourse)
-            await putCourse(result)
+            const result = await putCourse(cekValue(payload, idCourse))
+            console.log(result);
+            setTypepop(result.data.status)
+            setMessage(result.data.message)
+            console.log(cekValue(payload, idCourse));
         } catch (error) {
             console.log(error)
         }
@@ -50,12 +56,12 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
 
     const cekValue = (data, idCourse) => {
         const keys = ['id', 'title', 'image', 'subtitle', 'description', 'classCode', 'type', 'authorBy', 'rating', 'price', 'level', 'telegram'];
-
+    
         const updatedData = keys.reduce((result, key) => {
-            result[key] = data[key] === "" ? idCourse[key] : data[key];
+            result[key] = data[key] !== "" ? data[key] : idCourse[key];
             return result;
-        }, {})
-
+        }, {});
+    
         return updatedData;
     };
 
@@ -68,8 +74,12 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
     useEffect(() => {
         getCourseById(id).then(res => {
             setIdCourse(res.data.data)
+            console.log(res.data.data);
         })
     }, [id])
+
+    const [price, setPrice] = useState(idCourse.price)
+
 
     useEffect(() => {
         getCurretUser().then(res => {
@@ -96,6 +106,15 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
         e.preventDefault()
     }
 
+    const handleClick = () => {
+        setTimeout(() => {
+            setShowTopPopup(true);
+        }, 1000);
+        setTimeout(() => {
+            setShowTopPopup(false);
+        }, 5000)
+    };
+
     return (
         <>
             {editCourse && <div className="fixed inset-0  flex justify-center items-center bg-black/50">
@@ -104,6 +123,10 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                         <button type="button" onClick={() => setEditCourse(!editCourse)}>
                             <img src="/icon_svg/LiveArea.svg" alt="Close icon" className="absolute top-0 right-0 pt-4 pr-4" />
                         </button>
+                        {showTopPopup && (<div className="justify-center items-center absolute ">
+                            <AllertReset message={message} type={typepop} onClose={handleClick} duration={5000} />
+                        </div>
+                        )}
                         <h1 className="font-bold py-11 text-2xl text-center text-DARKBLUE05">EditKelas</h1>
                         <div className="pb-4">
                             <label className="block pb-2 text-xs font-semibold">Nama Kelas</label>
@@ -176,16 +199,17 @@ const EditKelas = ({ editCourse, setEditCourse, id }) => {
                         </div>
                         <div className="pb-4">
                             <label className="block pb-2 text-xs font-semibold">Materi</label>
-                            <input type="text" name="Materi" placeholder={idCourse.subtitle} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 pt-3 pb-20 w-full" value={description} onChange={(e) => setdescription(e.target.value)} />
+                            <input type="text" name="Materi" placeholder={idCourse.description} className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 pt-3 pb-20 w-full" value={description} onChange={(e) => setdescription(e.target.value)} />
                         </div>
                         <div className="grid grid-cols-12 gap-[15px] pb-11">
                             <button type="button" className="col-span-7" onClick={() => setEditModules(!editModules)}>
                                 <div className=""><ButtonEditKelas background={"#FF0000"} title={"Edit Module"}></ButtonEditKelas></div>
                             </button>
-                            <button type="button" className="col-span-5" onClick={() => handleEditCourse()}>
+                            <button type="button" className="col-span-5" onClick={() => {handleEditCourse(); handleClick()}}>
                                 <div className="col-span-5"><ButtonEditKelas background={"#6148FF"} title={"Simpan"}></ButtonEditKelas></div>
                             </button>
                         </div>
+
                         {editModules && <EditModules editModules={editModules} setEditModules={setEditModules} id={id} />}
                     </form>
                 </div>
